@@ -8,17 +8,17 @@
 
 require 'Faker'
 
-100.times do 
+10.times do 
     owner = Owner.create(
-        name: Faker::Name.name
+        name: Faker::Name.name,
         teamname: Faker::Team.name
     )
 
-    100.times do 
+    10.times do 
         Player.create(
-            name: Faker::Sports::Basketball.player
-            team: Faker::Sports::Basketball.team
-            position: Faker::Sports:Basketball.position
+            name: Faker::Sports::Basketball.player,
+            team: Faker::Sports::Basketball.team,
+            position: Faker::Sports::Basketball.position,
             owner_id: owner.id
         )
     end
