@@ -10,32 +10,31 @@ class Owner {
         this.teamname = obj.teamname
     }
 
-
-    ownerHTML(ownerObj) {
-        return 
-        `
-        <h3>${this.name}</h3>
-        <h5>${this.teamname}</h5>
-        `
+    get ownerHTML() { 
+        return (`
+        ${this.name}
+        ${this.teamname}
+        `)
     }
-
 }
 
-function fetchOwners() {
-    return fetch(ownerURL)
+ownerBtn.addEventListener("click", e => {
+    fetchOwners(e)
+})
+
+function fetchOwners(e) {
+    fetch(ownerURL)
     .then(res => res.json())
     .then(json => {
-        const newOwner = new Owner(json)
-        const renderedOwner = newOwner.ownerHTML()
+        const newOwner = new Owner(json[0])
+        console.log(e.target)
+        const renderedOwner = newOwner.ownerHTML
         document.querySelector("div#owner-container").append(renderedOwner)
     })
 }
 
 
-ownerBtn.addEventListener("click", e => {
-    console.log("hi")
-    fetchOwners()
-})
+
 
 class Player {
     constructor(name, team, position) {
