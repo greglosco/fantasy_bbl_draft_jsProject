@@ -3,13 +3,10 @@ const ownerURL = `${baseURL}/owners`
 const playerURL = `${baseURL}/players`
 const draftSlotContainers = document.querySelector("div#drafting-slots")
 const ownerBtn = document.querySelector("button.owner")
-
-
 const playerBtn = document.querySelector("button.player")
 
-ownerBtn.addEventListener("click", e => {
-    fetchOwners()
-})
+ownerBtn.addEventListener("click", e => fetchOwners())
+playerBtn.addEventListener("click", e => fetchPlayers())
 
 function randomOwnerInteger() {
     const generatedNums = []
@@ -51,6 +48,17 @@ function fetchOwners() {
         const renderedOwner = newOwner.ownerHTML
         ownerContainer.innerHTML = renderedOwner
     })      
+}
+
+function fetchPlayers() {
+    fetch(playerURL)
+    .then(res => res.json())
+    .then(json => {
+        const playerContainer = document.createElement("div")
+            playerContainer.className = "player-container"
+            ownerContainer.append(playerContainer)
+        
+    })
 }
 
 
