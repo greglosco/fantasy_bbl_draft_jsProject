@@ -1,6 +1,6 @@
 .owner-container {
     background-color: #eeeeee;
-    height: 250px;
+    height: 300px;
     width: 300px;
     box-shadow: 10px 10px grey;
     padding: 10px;
@@ -15,3 +15,9 @@
     padding-top: 10px;
     padding-bottom: 30px;
 }
+
+p {
+    font-size: 15px;
+    color: black;
+    font-family: Arial;
+  }

@@ -3,6 +3,8 @@ const ownerURL = `${baseURL}/owners`
 const playerURL = `${baseURL}/players`
 const draftSlotContainers = document.querySelector("div#drafting-slots")
 const ownerBtn = document.querySelector("button.owner")
+
+
 const playerBtn = document.querySelector("button.player")
 
 ownerBtn.addEventListener("click", e => {
@@ -28,6 +30,12 @@ class Owner {
         return (`
         <h3>${this.name}</h3>
         <h5>${this.teamname}</h5>
+        <button class=player>Draft a Player</button>
+        <p id="Point-Guard">Point-Guard:</p>
+        <p id="Shooting-Guard">Shooting-Guard:</p>
+        <p id="Small Forward">Small Forward:</p>
+        <p id="Power Forward">Power Forward:</p>
+        <p id="Center">Center:</p>
         `)
     }
 }
