@@ -4,11 +4,18 @@ const playerURL = `${baseURL}/players`
 const draftSlotContainers = document.querySelector("div#drafting-slots")
 const ownerBtn = document.querySelector("button.owner")
 const playerBtn = document.querySelector("button.player")
-let ownerClicks = 0
 
+ownerBtn.addEventListener("click", e => {
+    fetchOwners()
+})
 
-function countOwnerClicks() {
-    ownerClicks++
+function randomOwnerInteger() {
+    const generatedNums = []
+    const randomNum = Math.floor(Math.random() * 32)
+    if (generatedNums.includes(randomNum)) {
+        generatedNums.push(randomNum)
+    }
+    return randomNum
 }
 
 class Owner {
@@ -19,15 +26,11 @@ class Owner {
 
     get ownerHTML() { 
         return (`
-        ${this.name}
-        ${this.teamname}
+        <h3>${this.name}</h3>
+        <h5>${this.teamname}</h5>
         `)
     }
 }
-
-ownerBtn.addEventListener("click", e => {
-    fetchOwners()
-})
 
 function fetchOwners() {
     fetch(ownerURL)
@@ -36,13 +39,11 @@ function fetchOwners() {
         const ownerContainer = document.createElement("div")
             ownerContainer.className = "owner-container"
             draftSlotContainers.append(ownerContainer)
-        const newOwner = new Owner(json[ownerClicks])
+        const newOwner = new Owner(json[randomOwnerInteger()])
         const renderedOwner = newOwner.ownerHTML
-        ownerContainer.append(renderedOwner)
+        ownerContainer.innerHTML = renderedOwner
     })      
 }
-
-
 
 
 class Player {
