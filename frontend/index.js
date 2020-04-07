@@ -3,6 +3,12 @@ const ownerURL = `${baseURL}/owners`
 const playerURL = `${baseURL}/players`
 const ownerBtn = document.querySelector("button.owner")
 const playerBtn = document.querySelector("button.player")
+let ownerClicks = 0
+
+
+function countOwnerClicks() {
+    ownerClicks++
+}
 
 class Owner {
     constructor(obj) {
@@ -19,15 +25,15 @@ class Owner {
 }
 
 ownerBtn.addEventListener("click", e => {
-    fetchOwners(e)
+    fetchOwners()
 })
 
-function fetchOwners(e) {
+function fetchOwners() {
     fetch(ownerURL)
     .then(res => res.json())
     .then(json => {
-        const newOwner = new Owner(json[0])
-        console.log(e.target)
+        const newOwner = new Owner(json[ownerClicks])
+        console.log(ownerClicks)
         const renderedOwner = newOwner.ownerHTML
         document.querySelector("div#owner-container").append(renderedOwner)
     })
