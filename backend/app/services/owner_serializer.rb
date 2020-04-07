@@ -6,6 +6,11 @@ class OwnerSerializer
 
     def to_serialized_json
         options = {
+            # include: {
+            #     players: {
+            #         only: [:id, :name]
+            #     }
+            # },
             except: [:created_at, :updated_at]
         }
         @owner.to_json(options)
