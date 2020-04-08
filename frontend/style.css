@@ -1,11 +1,11 @@
-header {
-    background-color: lightblue;
-    height: 75px;
+body {
+    background-color: lightgrey;
 }
 
 header h1 {
     padding: 10px;
     font-family: Courier;
+    border-bottom: solid;
 }
 
 h3, h5 {
