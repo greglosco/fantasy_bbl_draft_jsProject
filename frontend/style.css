@@ -1,20 +1,27 @@
 header {
-    background-color: green;
+    background-color: lightblue;
     height: 75px;
 }
 
 header h1 {
     padding: 10px;
+    font-family: Courier;
+}
+
+h3, h5 {
+    font-family: Courier;
+    text-transform: capitalize;
 }
 
 
 .owner-container {
-    background-color: #eeeeee;
+    background-color: lightgrey;
     height: 400px;
     width: 300px;
-    box-shadow: 10px 10px grey;
     padding: 10px;
     border-radius: 10px;
+    border-style: solid;
+    border-color: black;
 }
 
 #drafting-slots {
@@ -29,11 +36,12 @@ header h1 {
 p {
     font-size: 15px;
     color: black;
-    font-family: Arial;
+    font-family: Courier;
   }
 
 button {
     color: white;
     background-color: red;
     border-radius: 10px;
+    font-family: Courier;
 }

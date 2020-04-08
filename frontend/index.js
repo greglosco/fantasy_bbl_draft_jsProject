@@ -72,6 +72,11 @@ function fetchPlayers(e) {
         const pick = e.target.parentElement.querySelector(`div#team p#${newPlayer.position.replace(/\s+/g, '-')}`)
         if (pick.innerHTML == "") {
             pick.innerHTML = newPlayer.playerHTML
+            const removePlayerBtn = document.createElement("button")
+            removePlayerBtn.className = "remove-player"
+            removePlayerBtn.innerHTML = "X"
+            removePlayerBtn.addEventListener("click", e => deletePlayer(e))
+            pick.append(removePlayerBtn)
         } else {
             fetchPlayers(e)
         }
