@@ -68,18 +68,12 @@ function fetchPlayers(e) {
             playerContainer.className = "player-container"
             e.target.parentElement.append(playerContainer)
         const newPlayer = new Player(json[randomPlayerInteger()])
-            // const pointGuardElement = e.target.nextElementSibling.children[0]
-            // const shootingGuardElement = e.target.nextElementSibling.children[1]
-            // const smallForwardElement = e.target.nextElementSibling.children[2]
-            // const powerForwardElement = e.target.nextElementSibling.children[3]
-            // const centerElement = e.target.nextElementSibling.children[4]
-            // const teamElements = []
-            // teamElements.push(pointGuardElement, shootingGuardElement, smallForwardElement, powerForwardElement, centerElement)
         const pick = document.querySelector(`div#team p#${newPlayer.position.replace(/\s+/g, '-')}`)
-        // if pick.innerHTML = ""
-        //     pick.innerHTML = newPlayer.playerHTML
-    
-        
+        if (pick.innerHTML = " ") {
+            pick.innerHTML = newPlayer.playerHTML
+        } else {
+            fetchPlayers(e)
+        }
     })
 }
 
@@ -93,7 +87,7 @@ class Player {
     }
 
     get playerHTML() {
-
+        return `${this.position}: ${this.name} - ${this.team}`
     }
 }
 
