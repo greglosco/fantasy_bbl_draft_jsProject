@@ -73,7 +73,10 @@ function fetchPlayers(e) {
     fetch(playerURL)
     .then(res => res.json())
     .then(json => {
-        const newPlayer = new Player(json[randomPlayerInteger()])
+        const newPlayerOwner = e.target.parentElement.parentElement.querySelector("h3").innerHTML
+        const newPlayer = new Player(json[randomPlayerInteger()], newPlayerOwner)
+        
+        
         const pick = e.target.parentElement.querySelector(`div#team p#${newPlayer.position.replace(/\s+/g, '-')}`)
         if (pick.innerHTML == "") {
             pick.innerHTML = newPlayer.playerHTML
@@ -90,15 +93,15 @@ function fetchPlayers(e) {
 }
 
 class Player {
-    constructor(obj) {
+    constructor(obj, owner) {
         this.name = obj.name
         this.team = obj.team
         this.position = obj.position
-        this.owner_id = obj.owner.id
+        this.owner = owner
     }
 
     get playerHTML() {
-        return `${this.position}: ${this.name} - ${this.team}`
+        return `${this.position}: ${this.name} - ${this.team} (${this.owner})`
     }
 }
 
