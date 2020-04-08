@@ -70,26 +70,40 @@ function fetchOwners() {
 }
 
 function fetchPlayers(e) {
-    fetch(playerURL)
-    .then(res => res.json())
-    .then(json => {
-        console.log(e.target.parentElement)
-        const newPlayerOwner = e.target.parentElement.parentElement.querySelector("h3").innerHTML
-        const newPlayer = new Player(json[randomPlayerInteger()], newPlayerOwner)
+    const pGElement = e.target.parentElement.firstElementChild.nextElementSibling
+    const sGElement = e.target.parentElement.firstElementChild.nextElementSibling.nextElementSibling
+    const sFElement = e.target.parentElement.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling
+    const pFElement = e.target.parentElement.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling
+    const cElement = e.target.parentElement.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling
+    if (pGElement.innerHTML == "" || sGElement.innerHTML == "" || sFElement.innerHTML == "" || pFElement.innerHTML == "" || cElement.innerHTML == "") {
+        fetch(playerURL)
+        .then(res => res.json())
+        .then(json => {
+            const newPlayerOwner = e.target.parentElement.parentElement.querySelector("h3").innerHTML
+            const newPlayer = new Player(json[randomPlayerInteger()], newPlayerOwner)
+            console.log(newPlayer)
 
-        const pick = e.target.parentElement.querySelector(`div#team p#${newPlayer.position.replace(/\s+/g, '-')}`)
-        if (pick.innerHTML == "") {
-            pick.innerHTML = newPlayer.playerHTML
-            const removePlayerBtn = document.createElement("button")
-                removePlayerBtn.className = "remove-player"
-                removePlayerBtn.innerHTML = "X"
-                removePlayerBtn.addEventListener("click", e => deletePlayer(pick, e))
-            pick.append(removePlayerBtn)
-        } else {
-            existingPlayers.pop()
-            fetchPlayers(e)
-        }
-    })
+            const pick = e.target.parentElement.querySelector(`div#team p#${newPlayer.position.replace(/\s+/g, '-')}`)
+            if (pick.innerHTML == "") {
+                pick.innerHTML = newPlayer.playerHTML
+
+                const editPlayerNameBtn = document.createElement("button")
+                    editPlayerNameBtn.className = "edit-player-name"
+                    editPlayerNameBtn.innerHTML = "Edit Name"
+                    editPlayerNameBtn.addEventListener("click", e => editPlayerName(newPlayer, e))
+                pick.append(editPlayerNameBtn)
+
+                const removePlayerBtn = document.createElement("button")
+                    removePlayerBtn.className = "remove-player"
+                    removePlayerBtn.innerHTML = "X"
+                    removePlayerBtn.addEventListener("click", e => deletePick(pick, e))
+                pick.append(removePlayerBtn)
+            } else {
+                existingPlayers.pop()
+                fetchPlayers(e)
+            }
+        })
+    }   
 }
 
 class Player {
@@ -102,21 +116,14 @@ class Player {
     }
 
     get playerHTML() {
-        return `${this.position}: ${this.name} - ${this.team} (${this.owner}) <input type='hidden' id='${this.id}'>`
+        return `${this.position}: <span>${this.name}</span> - ${this.team} (${this.owner}) <input type='hidden' id='${this.id}'>`
     }
 }
 
-function deletePlayer(pick, e) {
+function deletePick(pick, e) {
     const playerid = (e.target.parentElement.querySelector("input").id)
-    console.log(playerid)
-    fetch(`${playerURL}/${playeridh}`, {
-        method: "DELETE"
-    })
-    .then(res => res.json())
-    .then(obj => {
         e.target.parentElement.innerHTML = ""
-        removePlayerElement(existingPlayers, playerid)
-    })
+        removePlayerElement(existingPlayers, playerid)   
 }
 
 function removePlayerElement(array, id) {
@@ -124,4 +131,25 @@ function removePlayerElement(array, id) {
     array.splice(index, 1)
     return existingPlayers
 }
+
+function editPlayerName(newplayer, e) {
+    console.log(e.target.parentElement.querySelector("span").innerHTML)
+    const nameField = (e.target.parentElement.querySelector("span"))
+    const form = document.createElement("form")
+    const input = document.createElement("input")
+        input.setAttribute("type", "text")
+        input.setAttribute("placeholder", "New Name")
+    form.append(input)
+    const submitBtn = document.createElement("button")
+        submitBtn.innerHTML = "Update Name"
+        submitBtn.addEventListener("click", e => updateName())
+    form.append(submitBtn)
+    nameField.append(form)
+}
+
+function updateName(e) {
+    e.preventDefault()
+    
+}
+
 
