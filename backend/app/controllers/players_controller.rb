@@ -10,11 +10,16 @@ class PlayersController < ApplicationController
         render json: PlayerSerializer.new(player).to_serialized_json
     end
 
-    def destroy 
+    def update
         player = Player.find_by(id: params[:id])
-        player.delete
+        player.update(player_params)
+        render json: player
+    end
 
-        render json PlayerSerializer.new(player).to_serialized_json
+    private
+
+    def player_params
+        params.require(:player).permit(:name)
     end
 
 end
