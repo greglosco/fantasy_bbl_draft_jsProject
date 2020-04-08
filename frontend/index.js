@@ -69,7 +69,7 @@ function fetchPlayers(e) {
             e.target.parentElement.append(playerContainer)
         const newPlayer = new Player(json[randomPlayerInteger()])
         const pick = document.querySelector(`div#team p#${newPlayer.position.replace(/\s+/g, '-')}`)
-        if (pick.innerHTML = " ") {
+        if (pick.innerHTML == "") {
             pick.innerHTML = newPlayer.playerHTML
         } else {
             fetchPlayers(e)
