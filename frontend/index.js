@@ -104,7 +104,7 @@ class Player {
     }
 
     get playerHTML() {
-        return `${this.position}: <span>${this.name}</span> - ${this.team} (${this.owner}) <input type='hidden' id='${this.id}'>`
+        return `${this.position}: <span>${this.name}</span> - ${this.team} <input type='hidden' id='${this.id}'>`
     }
 }
 
