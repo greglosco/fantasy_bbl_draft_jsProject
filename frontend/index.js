@@ -3,25 +3,28 @@ const ownerURL = `${baseURL}/owners`
 const playerURL = `${baseURL}/players`
 const draftSlotContainers = document.querySelector("div#drafting-slots")
 const ownerBtn = document.querySelector("button.owner")
+const existingOwners = []
+const existingPlayers = []
+
 
 ownerBtn.addEventListener("click", () => fetchOwners())
 
 function randomOwnerInteger() {
-    const generatedNums = []
     const randomNum = Math.floor(Math.random() * 12)
-    if (generatedNums.includes(randomNum)) {
-        generatedNums.push(randomNum)
+    if (!(existingOwners.includes(randomNum))) {
+        existingOwners.push(randomNum)
+        return randomNum
+    } else {
+        return randomOwnerInteger()
     }
-    return randomNum
 }
 
 function randomPlayerInteger() {
-    const generatedNums = []
     const randomNum = Math.floor(Math.random() * 120)
-    if (generatedNums.includes(randomNum)) {
-        generatedNums.push(randomNum)
+    if (!(existingPlayers.includes(randomNum))) {
+        existingPlayers.push(randomNum)
+        return randomNum
     }
-    return randomNum
 }
 
 class Owner {
@@ -49,14 +52,15 @@ function fetchOwners() {
     fetch(ownerURL)
     .then(res => res.json())
     .then(json => {
+        const newOwner = new Owner(json[randomOwnerInteger()])
+        console.log(existingOwners)
+
         const ownerContainer = document.createElement("div")
             ownerContainer.className = "owner-container"
             draftSlotContainers.append(ownerContainer)
-
-        const newOwner = new Owner(json[randomOwnerInteger()])
-        ownerContainer.innerHTML = newOwner.ownerHTML
-
-        const playerBtn = document.createElement("button")
+        ownerContainer.innerHTML = newOwner.ownerHTML        
+        
+            const playerBtn = document.createElement("button")
             playerBtn.className = "player"
             playerBtn.innerHTML = "Draft a Player"
             playerBtn.addEventListener("click", e => fetchPlayers(e))
