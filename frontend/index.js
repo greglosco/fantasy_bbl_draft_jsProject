@@ -24,6 +24,8 @@ function randomPlayerInteger() {
     if (!(existingPlayers.includes(randomNum))) {
         existingPlayers.push(randomNum)
         return randomNum
+    } else {
+        return randomPlayerInteger
     }
 }
 
