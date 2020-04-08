@@ -56,23 +56,20 @@ function fetchOwners() {
         const newOwner = new Owner(json[randomOwnerInteger()])
         ownerContainer.innerHTML = newOwner.ownerHTML
         const playerBtn = document.querySelector("button.player")
-        playerBtn.addEventListener("click", e => fetchPlayers(e))
+        playerBtn.addEventListener("click", e => fetchPlayers())
     })      
 }
 
-function fetchPlayers(e) {
+function fetchPlayers() {
     fetch(playerURL)
     .then(res => res.json())
     .then(json => {
-        const playerContainer = document.createElement("div")
-            playerContainer.className = "player-container"
-            e.target.parentElement.append(playerContainer)
         const newPlayer = new Player(json[randomPlayerInteger()])
         const pick = document.querySelector(`div#team p#${newPlayer.position.replace(/\s+/g, '-')}`)
         if (pick.innerHTML == "") {
             pick.innerHTML = newPlayer.playerHTML
         } else {
-            fetchPlayers(e)
+            fetchPlayers()
         }
     })
 }
