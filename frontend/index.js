@@ -134,21 +134,25 @@ function editPlayerName(newPlayer, e) {
 
 function updateName(newPlayer, input, e) {
     e.preventDefault()
-    fetch(`${playerURL}/${newPlayer.id}`, {
-        method: "PATCH",
-        headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        },
-        body: JSON.stringify({
-            "name": input.value
+    const nameField = (e.target.parentElement.parentElement)
+    if (input.value == "") {
+        nameField.innerHTML = newPlayer.name
+    } else {
+        fetch(`${playerURL}/${newPlayer.id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify({
+                "name": input.value
+            })
         })
-    })
-    .then(res => res.json())
-    .then(json => {
-        const nameField = (e.target.parentElement.parentElement)
-        nameField.innerHTML = json.name
-    })
+        .then(res => res.json())
+        .then(json => {
+            nameField.innerHTML = json.name
+        })
+    }
 }
 
 function deletePick(e) {
