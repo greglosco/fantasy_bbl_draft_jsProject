@@ -69,18 +69,16 @@ function fetchPlayers(e) {
             playerContainer.className = "player-container"
             e.target.parentElement.append(playerContainer)
         const newPlayer = new Player(json[randomPlayerInteger()])
-        // if (e.target.nextElementSibling.hasAttribute(`p#${newPos}`) && (`p#${newPos}`).innerHTML == "")
-            const pointGuardElement = e.target.nextElementSibling.children[0]
-            const shootingGuardElement = e.target.nextElementSibling.children[1]
-            const smallForwardElement = e.target.nextElementSibling.children[2]
-            const powerForwardElement = e.target.nextElementSibling.children[3]
-            const centerElement = e.target.nextElementSibling.children[4]
-            console.log(centerElement)
-            const teamElements = []
-            teamElements.push(pointGuardElement, shootingGuardElement, smallForwardElement, powerForwardElement, centerElement)
-        if (teamElements.includes(newPlayer.position)) {
-            console.log(centerElement)
-        }
+            // const pointGuardElement = e.target.nextElementSibling.children[0]
+            // const shootingGuardElement = e.target.nextElementSibling.children[1]
+            // const smallForwardElement = e.target.nextElementSibling.children[2]
+            // const powerForwardElement = e.target.nextElementSibling.children[3]
+            // const centerElement = e.target.nextElementSibling.children[4]
+            // const teamElements = []
+            // teamElements.push(pointGuardElement, shootingGuardElement, smallForwardElement, powerForwardElement, centerElement)
+        const pick = document.querySelector(`div#team p#${newPlayer.position.replace(/\s+/g, '-')}`)
+        if pick.innerHTML = ""
+            pick.innerHTML = newPlayer.playerHTML
     
         
     })
