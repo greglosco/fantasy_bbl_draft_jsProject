@@ -73,9 +73,10 @@ function fetchPlayers(e) {
     fetch(playerURL)
     .then(res => res.json())
     .then(json => {
+        console.log(e.target.parentElement)
         const newPlayerOwner = e.target.parentElement.parentElement.querySelector("h3").innerHTML
         const newPlayer = new Player(json[randomPlayerInteger()], newPlayerOwner)
-        
+
         const pick = e.target.parentElement.querySelector(`div#team p#${newPlayer.position.replace(/\s+/g, '-')}`)
         if (pick.innerHTML == "") {
             pick.innerHTML = newPlayer.playerHTML
@@ -93,6 +94,7 @@ function fetchPlayers(e) {
 
 class Player {
     constructor(obj, owner) {
+        this.id = obj.id
         this.name = obj.name
         this.team = obj.team
         this.position = obj.position
@@ -100,18 +102,26 @@ class Player {
     }
 
     get playerHTML() {
-        return `${this.position}: ${this.name} - ${this.team} (${this.owner})`
+        return `${this.position}: ${this.name} - ${this.team} (${this.owner}) <input type='hidden' id='${this.id}'>`
     }
 }
 
 function deletePlayer(pick, e) {
-    fetch(`${baseURL}/${pick.id}`, {
+    const playerid = (e.target.parentElement.querySelector("input").id)
+    console.log(playerid)
+    fetch(`${playerURL}/${playeridh}`, {
         method: "DELETE"
     })
     .then(res => res.json())
     .then(obj => {
         e.target.parentElement.innerHTML = ""
-
+        removePlayerElement(existingPlayers, playerid)
     })
+}
+
+function removePlayerElement(array, id) {
+    const index = array.indexOf(id-1)
+    array.splice(index, 1)
+    return existingPlayers
 }
 
