@@ -1,3 +1,13 @@
+header {
+    background-color: green;
+    height: 75px;
+}
+
+header h1 {
+    padding: 10px;
+}
+
+
 .owner-container {
     background-color: #eeeeee;
     height: 400px;
@@ -21,3 +31,9 @@ p {
     color: black;
     font-family: Arial;
   }
+
+button {
+    color: white;
+    background-color: red;
+    border-radius: 10px;
+}
