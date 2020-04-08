@@ -13,15 +13,41 @@ require 'Faker'
         name: Faker::Name.name,
         teamname: Faker::Team.name
     )
-    10.times do 
+     
         Player.create(
             name: Faker::Sports::Basketball.player,
             team: Faker::Sports::Basketball.team,
-            position: Faker::Sports::Basketball.position,
+            position: "Point Guard",
             owner_id: owner.id
         )
-    end
 
+        Player.create(
+            name: Faker::Sports::Basketball.player,
+            team: Faker::Sports::Basketball.team,
+            position: "Shooting Guard",
+            owner_id: owner.id
+        )
+
+        Player.create(
+            name: Faker::Sports::Basketball.player,
+            team: Faker::Sports::Basketball.team,
+            position: "Small Forward",
+            owner_id: owner.id
+        )
+
+        Player.create(
+            name: Faker::Sports::Basketball.player,
+            team: Faker::Sports::Basketball.team,
+            position: "Power Forward",
+            owner_id: owner.id
+        )
+
+        Player.create(
+            name: Faker::Sports::Basketball.player,
+            team: Faker::Sports::Basketball.team,
+            position: "Center",
+            owner_id: owner.id
+        )
 end
 
 
