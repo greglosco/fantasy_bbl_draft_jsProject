@@ -81,7 +81,6 @@ function fetchPlayers(e) {
         .then(json => {
             const newPlayerOwner = e.target.parentElement.parentElement.querySelector("h3").innerHTML
             const newPlayer = new Player(json[randomPlayerInteger()], newPlayerOwner)
-            console.log(newPlayer)
 
             const pick = e.target.parentElement.querySelector(`div#team p#${newPlayer.position.replace(/\s+/g, '-')}`)
             if (pick.innerHTML == "") {
@@ -96,7 +95,7 @@ function fetchPlayers(e) {
                 const removePlayerBtn = document.createElement("button")
                     removePlayerBtn.className = "remove-player"
                     removePlayerBtn.innerHTML = "X"
-                    removePlayerBtn.addEventListener("click", e => deletePick(pick, e))
+                    removePlayerBtn.addEventListener("click", e => deletePick(e))
                 pick.append(removePlayerBtn)
             } else {
                 existingPlayers.pop()
@@ -120,7 +119,7 @@ class Player {
     }
 }
 
-function deletePick(pick, e) {
+function deletePick(e) {
     const playerid = (e.target.parentElement.querySelector("input").id)
         e.target.parentElement.innerHTML = ""
         removePlayerElement(existingPlayers, playerid)   
@@ -132,8 +131,7 @@ function removePlayerElement(array, id) {
     return existingPlayers
 }
 
-function editPlayerName(newplayer, e) {
-    console.log(e.target.parentElement.querySelector("span").innerHTML)
+function editPlayerName(newPlayer, e) {
     const nameField = (e.target.parentElement.querySelector("span"))
     const form = document.createElement("form")
     const input = document.createElement("input")
@@ -142,14 +140,31 @@ function editPlayerName(newplayer, e) {
     form.append(input)
     const submitBtn = document.createElement("button")
         submitBtn.innerHTML = "Update Name"
-        submitBtn.addEventListener("click", e => updateName())
+        submitBtn.addEventListener("click", e => updateName(newPlayer, input, e))
     form.append(submitBtn)
     nameField.append(form)
 }
 
-function updateName(e) {
+function updateName(newPlayer, input, e) {
+    console.log(newPlayer)
+    console.log(input.value)
     e.preventDefault()
-    
+    fetch(`${playerURL}/${newPlayer.id}`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+        body: JSON.stringify({
+            "name": input.value
+        })
+    })
+    .then(res => res.json())
+    .then(json => {
+        console.log(json)
+        const nameField = (e.target.parentElement.parentElement)
+        nameField.innerHTML = json.name
+    })
 }
 
 
