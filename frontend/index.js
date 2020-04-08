@@ -6,27 +6,25 @@ const ownerBtn = document.querySelector("button.owner")
 const existingOwners = []
 const existingPlayers = []
 
-
 ownerBtn.addEventListener("click", () => fetchOwners())
 
-function randomOwnerInteger() {
-    const randomNum = Math.floor(Math.random() * 12)
-    if (!(existingOwners.includes(randomNum))) {
-        existingOwners.push(randomNum)
-        return randomNum
-    } else {
-        return randomOwnerInteger()
-    }
-}
+function fetchOwners() {
+    fetch(ownerURL)
+    .then(res => res.json())
+    .then(json => {
+        const newOwner = new Owner(json[randomOwnerInteger()])
 
-function randomPlayerInteger() {
-    const randomNum = Math.floor(Math.random() * 60)
-    if (!(existingPlayers.includes(randomNum))) {
-        existingPlayers.push(randomNum)
-        return randomNum
-    } else {
-        return randomPlayerInteger()
-    }
+        const ownerContainer = document.createElement("div")
+            ownerContainer.className = "owner-container"
+            draftSlotContainers.append(ownerContainer)
+        ownerContainer.innerHTML = newOwner.ownerHTML        
+        
+            const playerBtn = document.createElement("button")
+                playerBtn.className = "player"
+                playerBtn.innerHTML = "Draft a Player"
+                playerBtn.addEventListener("click", e => fetchPlayers(e))
+            ownerContainer.querySelector("div#team").prepend(playerBtn)
+    })      
 }
 
 class Owner {
@@ -50,23 +48,14 @@ class Owner {
     }
 }
 
-function fetchOwners() {
-    fetch(ownerURL)
-    .then(res => res.json())
-    .then(json => {
-        const newOwner = new Owner(json[randomOwnerInteger()])
-
-        const ownerContainer = document.createElement("div")
-            ownerContainer.className = "owner-container"
-            draftSlotContainers.append(ownerContainer)
-        ownerContainer.innerHTML = newOwner.ownerHTML        
-        
-            const playerBtn = document.createElement("button")
-                playerBtn.className = "player"
-                playerBtn.innerHTML = "Draft a Player"
-                playerBtn.addEventListener("click", e => fetchPlayers(e))
-            ownerContainer.querySelector("div#team").prepend(playerBtn)
-    })      
+function randomOwnerInteger() {
+    const randomNum = Math.floor(Math.random() * 12)
+    if (!(existingOwners.includes(randomNum))) {
+        existingOwners.push(randomNum)
+        return randomNum
+    } else {
+        return randomOwnerInteger()
+    }
 }
 
 function fetchPlayers(e) {
@@ -119,16 +108,14 @@ class Player {
     }
 }
 
-function deletePick(e) {
-    const playerid = (e.target.parentElement.querySelector("input").id)
-        e.target.parentElement.innerHTML = ""
-        removePlayerElement(existingPlayers, playerid)   
-}
-
-function removePlayerElement(array, id) {
-    const index = array.indexOf(id-1)
-    array.splice(index, 1)
-    return existingPlayers
+function randomPlayerInteger() {
+    const randomNum = Math.floor(Math.random() * 60)
+    if (!(existingPlayers.includes(randomNum))) {
+        existingPlayers.push(randomNum)
+        return randomNum
+    } else {
+        return randomPlayerInteger()
+    }
 }
 
 function editPlayerName(newPlayer, e) {
@@ -146,8 +133,6 @@ function editPlayerName(newPlayer, e) {
 }
 
 function updateName(newPlayer, input, e) {
-    console.log(newPlayer)
-    console.log(input.value)
     e.preventDefault()
     fetch(`${playerURL}/${newPlayer.id}`, {
         method: "PATCH",
@@ -161,10 +146,19 @@ function updateName(newPlayer, input, e) {
     })
     .then(res => res.json())
     .then(json => {
-        console.log(json)
         const nameField = (e.target.parentElement.parentElement)
         nameField.innerHTML = json.name
     })
 }
 
+function deletePick(e) {
+    const playerid = (e.target.parentElement.querySelector("input").id)
+        e.target.parentElement.innerHTML = ""
+        removePlayerElement(existingPlayers, playerid)   
+}
 
+function removePlayerElement(array, id) {
+    const index = array.indexOf(id-1)
+    array.splice(index, 1)
+    return existingPlayers
+}
