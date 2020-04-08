@@ -13,6 +13,10 @@ h3, h5 {
     text-transform: capitalize;
 }
 
+h5 {
+    border-bottom: solid; 
+}
+
 
 .owner-container {
     background-color: lightgrey;
