@@ -20,7 +20,7 @@ function randomOwnerInteger() {
 }
 
 function randomPlayerInteger() {
-    const randomNum = Math.floor(Math.random() * 120)
+    const randomNum = Math.floor(Math.random() * 60)
     if (!(existingPlayers.includes(randomNum))) {
         existingPlayers.push(randomNum)
         return randomNum
@@ -62,9 +62,9 @@ function fetchOwners() {
         ownerContainer.innerHTML = newOwner.ownerHTML        
         
             const playerBtn = document.createElement("button")
-            playerBtn.className = "player"
-            playerBtn.innerHTML = "Draft a Player"
-            playerBtn.addEventListener("click", e => fetchPlayers(e))
+                playerBtn.className = "player"
+                playerBtn.innerHTML = "Draft a Player"
+                playerBtn.addEventListener("click", e => fetchPlayers(e))
             ownerContainer.querySelector("div#team").prepend(playerBtn)
     })      
 }
@@ -76,14 +76,13 @@ function fetchPlayers(e) {
         const newPlayerOwner = e.target.parentElement.parentElement.querySelector("h3").innerHTML
         const newPlayer = new Player(json[randomPlayerInteger()], newPlayerOwner)
         
-        
         const pick = e.target.parentElement.querySelector(`div#team p#${newPlayer.position.replace(/\s+/g, '-')}`)
         if (pick.innerHTML == "") {
             pick.innerHTML = newPlayer.playerHTML
             const removePlayerBtn = document.createElement("button")
-            removePlayerBtn.className = "remove-player"
-            removePlayerBtn.innerHTML = "X"
-            removePlayerBtn.addEventListener("click", e => deletePlayer(pick, e))
+                removePlayerBtn.className = "remove-player"
+                removePlayerBtn.innerHTML = "X"
+                removePlayerBtn.addEventListener("click", e => deletePlayer(pick, e))
             pick.append(removePlayerBtn)
         } else {
             existingPlayers.pop()
@@ -112,6 +111,7 @@ function deletePlayer(pick, e) {
     .then(res => res.json())
     .then(obj => {
         e.target.parentElement.innerHTML = ""
+
     })
 }
 
