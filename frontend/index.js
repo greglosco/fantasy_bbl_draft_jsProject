@@ -54,8 +54,7 @@ function fetchOwners() {
             ownerContainer.className = "owner-container"
             draftSlotContainers.append(ownerContainer)
         const newOwner = new Owner(json[randomOwnerInteger()])
-        const renderedOwner = newOwner.ownerHTML
-        ownerContainer.innerHTML = renderedOwner
+        ownerContainer.innerHTML = newOwner.ownerHTML
         const playerBtn = document.querySelector("button.player")
         playerBtn.addEventListener("click", e => fetchPlayers(e))
     })      
@@ -77,8 +76,8 @@ function fetchPlayers(e) {
             // const teamElements = []
             // teamElements.push(pointGuardElement, shootingGuardElement, smallForwardElement, powerForwardElement, centerElement)
         const pick = document.querySelector(`div#team p#${newPlayer.position.replace(/\s+/g, '-')}`)
-        if pick.innerHTML = ""
-            pick.innerHTML = newPlayer.playerHTML
+        // if pick.innerHTML = ""
+        //     pick.innerHTML = newPlayer.playerHTML
     
         
     })
@@ -91,6 +90,10 @@ class Player {
         this.team = obj.team
         this.position = obj.position
         this.owner_id = obj.owner.id
+    }
+
+    get playerHTML() {
+
     }
 }
 
