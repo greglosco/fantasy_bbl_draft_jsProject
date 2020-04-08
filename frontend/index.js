@@ -34,7 +34,6 @@ class Owner {
         return (`
         <h3>${this.name}</h3>
         <h5>${this.teamname}</h5>
-        <button class=player>Draft a Player</button>
         <div id=team>
             <p id="Point-Guard"></p>
             <p id="Shooting-Guard"></p>
@@ -53,27 +52,31 @@ function fetchOwners() {
         const ownerContainer = document.createElement("div")
             ownerContainer.className = "owner-container"
             draftSlotContainers.append(ownerContainer)
+
         const newOwner = new Owner(json[randomOwnerInteger()])
         ownerContainer.innerHTML = newOwner.ownerHTML
-        const playerBtn = document.querySelector("button.player")
-        playerBtn.addEventListener("click", e => fetchPlayers())
+
+        const playerBtn = document.createElement("button")
+            playerBtn.className = "player"
+            playerBtn.innerHTML = "Draft a Player"
+            playerBtn.addEventListener("click", e => fetchPlayers(e))
+            ownerContainer.querySelector("div#team").prepend(playerBtn)
     })      
 }
 
-function fetchPlayers() {
+function fetchPlayers(e) {
     fetch(playerURL)
     .then(res => res.json())
     .then(json => {
         const newPlayer = new Player(json[randomPlayerInteger()])
-        const pick = document.querySelector(`div#team p#${newPlayer.position.replace(/\s+/g, '-')}`)
+        const pick = e.target.parentElement.querySelector(`div#team p#${newPlayer.position.replace(/\s+/g, '-')}`)
         if (pick.innerHTML == "") {
             pick.innerHTML = newPlayer.playerHTML
         } else {
-            fetchPlayers()
+            fetchPlayers(e)
         }
     })
 }
-
 
 class Player {
     constructor(obj) {
