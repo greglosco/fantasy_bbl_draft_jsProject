@@ -75,7 +75,7 @@ function fetchPlayers(e) {
             const removePlayerBtn = document.createElement("button")
             removePlayerBtn.className = "remove-player"
             removePlayerBtn.innerHTML = "X"
-            removePlayerBtn.addEventListener("click", e => deletePlayer(e))
+            removePlayerBtn.addEventListener("click", e => deletePlayer(pick, e))
             pick.append(removePlayerBtn)
         } else {
             fetchPlayers(e)
@@ -94,5 +94,15 @@ class Player {
     get playerHTML() {
         return `${this.position}: ${this.name} - ${this.team}`
     }
+}
+
+function deletePlayer(pick, e) {
+    fetch(`${baseURL}/${pick.id}`, {
+        method: "DELETE"
+    })
+    .then(res => res.json())
+    .then(obj => {
+        e.target.parentElement.innerHTML = ""
+    })
 }
 
