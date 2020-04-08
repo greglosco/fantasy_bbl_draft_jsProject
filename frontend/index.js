@@ -25,7 +25,7 @@ function randomPlayerInteger() {
         existingPlayers.push(randomNum)
         return randomNum
     } else {
-        return randomPlayerInteger
+        return randomPlayerInteger()
     }
 }
 
@@ -55,7 +55,6 @@ function fetchOwners() {
     .then(res => res.json())
     .then(json => {
         const newOwner = new Owner(json[randomOwnerInteger()])
-        console.log(existingOwners)
 
         const ownerContainer = document.createElement("div")
             ownerContainer.className = "owner-container"
@@ -84,6 +83,7 @@ function fetchPlayers(e) {
             removePlayerBtn.addEventListener("click", e => deletePlayer(pick, e))
             pick.append(removePlayerBtn)
         } else {
+            existingPlayers.pop()
             fetchPlayers(e)
         }
     })
