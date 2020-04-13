@@ -6,6 +6,30 @@ const ownerBtn = document.querySelector("button.owner")
 const existingOwners = []
 const existingPlayers = []
 
+//live coding exercise
+const sortOwnerDiv = document.querySelector("div#sortButton")
+
+const sortOwner = document.createElement('button')
+sortOwner.innerHTML = "Sort Owners"
+sortOwner.className = "sort-owners"
+sortOwner.addEventListener("click", () => sortOwners())
+sortOwnerDiv.append(sortOwner)
+
+function sortOwners() {
+    const slots = document.querySelectorAll("div.owner-container h3")
+    Array.from(slots).sort(function(a,b) {
+            if (a.innerHTML < b.innerHTML) {
+                return -1
+            } else {
+                return 1
+            }
+        }).forEach(el => {
+            document.querySelector("div#drafting-slots").append(el.parentElement)
+        })
+    }
+
+// end live coding exercise
+
 ownerBtn.addEventListener("click", () => fetchOwners())
 
 function fetchOwners() {
