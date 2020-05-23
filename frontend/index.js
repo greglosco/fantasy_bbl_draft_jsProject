@@ -1,4 +1,4 @@
-const baseURL = "http://localhost:3000"
+const baseURL = "https://fantasy-bbl-backend.herokuapp.com"
 const ownerURL = `${baseURL}/owners`
 const playerURL = `${baseURL}/players`
 const draftSlotContainers = document.querySelector("div#drafting-slots")
