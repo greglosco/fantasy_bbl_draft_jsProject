@@ -4,7 +4,8 @@
   "description": "see readme",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "build": "open index.html"
   },
   "repository": {
     "type": "git",
