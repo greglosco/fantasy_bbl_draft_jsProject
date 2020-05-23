@@ -1,0 +1,19 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "see readme",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/greglosco/fantasy_bbl_draft_jsproject.git"
+  },
+  "author": "greglosco",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/greglosco/fantasy_bbl_draft_jsproject/issues"
+  },
+  "homepage": "https://github.com/greglosco/fantasy_bbl_draft_jsproject#readme"
+}
